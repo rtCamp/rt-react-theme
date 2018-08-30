@@ -1,6 +1,9 @@
 .footer {
 	display: flex;
 	justify-content: space-between;
+	border-top: 1px solid #ccc;
+	padding-top: 20px;
+	margin-top: 50px;
 
 	a {
 		text-decoration: none;

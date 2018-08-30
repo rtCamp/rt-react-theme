@@ -17,9 +17,9 @@ export default class RtReactThemeDocument extends Document {
 					<link rel="stylesheet" href={ styleSheet } />
 				</Head>
 				<body>
-					<main id="main" className={ css.main }>
+					<div id="page" className={ css.page }>
 						<Main />
-					</main>
+					</div>
 					<NextScript />
 				</body>
 			</html>
