@@ -6,10 +6,8 @@
 
 import { Component } from 'react';
 import { APIURL } from "./../../config/env";
-import css from "../static/sass/style.scss"
 import Layout from './../components/Layout';
-import Posts from './../components/Posts';
-import Link from 'next/link'
+import Posts from './../components/posts';
 import fetch from 'isomorphic-unfetch'
 
 class Index extends Component {

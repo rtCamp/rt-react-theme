@@ -1,0 +1,17 @@
+.article {
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+}
+
+.postTitle {
+
+	a {
+		color: darkslategray;
+		text-decoration: none;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}

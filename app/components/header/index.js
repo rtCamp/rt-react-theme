@@ -4,6 +4,7 @@
  * @package rt-react-theme
  */
 
+import css from './style.scss';
 import { Component } from 'react';
 import Link from 'next/link'
 
@@ -14,15 +15,15 @@ class Header extends Component {
 		const { header } = this.props;
 
 		return (
-			<header>
+			<header className={ css.siteHeader } >
 				{ header && (
 					<div>
-						<div>
-							<h1>{ header.siteTitle }</h1>
+						<div className={ css.siteTitleDesc } >
+							<h1 className={ css.siteTitle } >{ header.siteTitle }</h1>
 							<p>{ header.siteDescription }</p>
 						</div>
-						<nav>
-							<ul>
+						<nav className={ css.mainNavContainer } >
+							<ul className={ css.mainNavList } >
 								<li key='home' >
 									<Link href={ '/' }>
 										<a>Home</a>

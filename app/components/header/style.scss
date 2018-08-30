@@ -1,0 +1,33 @@
+.siteHeader {
+	margin-bottom: 40px;
+}
+
+.siteTitle {
+	margin-bottom: 10px;
+}
+
+.siteTitleDesc {
+	margin-bottom: 30px;
+}
+
+.mainNavContainer {
+	border-bottom: 1px dotted #ccc;
+	border-top: 1px dotted #ccc;
+	padding: 20px 0;
+}
+
+.mainNavList {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+
+	a {
+		padding: 20px;
+		font-size: 18px;
+
+		&:first-child {
+			padding-left: 0;
+		}
+	}
+}

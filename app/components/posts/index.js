@@ -4,9 +4,10 @@
  * @package rt-react-theme
  */
 
+import css from './style.scss';
 import { Component } from 'react';
 import Link from 'next/link';
-import { createMarkup } from './../utils';
+import { createMarkup } from './../../utils';
 
 class Posts extends Component {
 
@@ -17,8 +18,8 @@ class Posts extends Component {
 		if ( posts ) {
 			return posts.map( ( post ) => {
 				return (
-					<article key={ post.id } >
-						<h2>
+					<article className={ css.article } key={ post.id } >
+						<h2 className={ css.postTitle } >
 							<Link as={ `/${post.slug}` } href={ `/page?id=${post.id}&type=post` }>
 								<a>{ post.title.rendered }</a>
 							</Link>
