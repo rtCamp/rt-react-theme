@@ -8,14 +8,9 @@ import { Component } from 'react';
 import Layout from './../components/Layout'
 import fetch from 'isomorphic-unfetch'
 import { APIURL } from "../../config/env";
+import { createMarkup } from './../utils';
 
 class Page extends Component {
-
-	constructor() {
-		super();
-
-		this.createMarkup = this.createMarkup.bind( this );
-	}
 
 	static async getInitialProps( context ) {
 		const { id } = context.query;
@@ -33,12 +28,6 @@ class Page extends Component {
 		}
 	}
 
-	createMarkup( html ) {
-		return {
-			__html: html
-		};
-	}
-
 	render() {
 
 		const { header, page } = this.props;
@@ -50,7 +39,7 @@ class Page extends Component {
 				{ page.title && (
 					<div>
 						<h1>{ page.title.rendered }</h1>
-						<div dangerouslySetInnerHTML={ this.createMarkup( page.content.rendered ) } />
+						<div dangerouslySetInnerHTML={ createMarkup( page.content.rendered ) } />
 					</div>
 				) }
 			</Layout>
