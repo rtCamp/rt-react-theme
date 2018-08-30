@@ -18,7 +18,11 @@ class Posts extends Component {
 			return posts.map( ( post ) => {
 				return (
 					<article key={ post.id } >
-						<h2>{ post.title.rendered }</h2>
+						<h2>
+							<Link as={ `/${post.slug}` } href={ `/page?id=${post.id}&type=post` }>
+								<a>{ post.title.rendered }</a>
+							</Link>
+						</h2>
 						<div dangerouslySetInnerHTML={ createMarkup( post.excerpt.rendered ) } />
 					</article>
 				);

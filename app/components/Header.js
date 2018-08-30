@@ -30,7 +30,7 @@ class Header extends Component {
 								</li>
 								{ header.menu.map( ( item ) => (
 									<li key={ item.id }>
-										<Link as={ `/p/${item.slug}` } href={ `/page?id=${item.id}` }>
+										<Link as={ `/${item.slug}` } href={ `/page?id=${item.id}&type=page` }>
 											<a>{ item.title }</a>
 										</Link>
 									</li>
