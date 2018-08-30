@@ -1,6 +1,12 @@
+/**
+ * Rt react theme document.
+ *
+ * @package rt-react-theme
+ */
+
 import Document, { Head, Main, NextScript } from 'next/document'
 
-export default class MyDocument extends Document {
+export default class RtReactThemeDocument extends Document {
 	render() {
 		return (
 			<html>
