@@ -1,3 +1,14 @@
 .main {
 	min-height: 500px;
 }
+
+.page {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 20px 20px;
+
+	img {
+		max-width: 100%;
+	}
+}
+

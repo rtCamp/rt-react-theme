@@ -7,7 +7,7 @@ import Header from './../header';
 import Footer from './../footer';
 
 const Layout = ( props ) => (
-	<div>
+	<div id="page" className={ css.page } >
 		<Header header={ props.header }/>
 		<main id="main" className={ css.main } >
 			{ props.children }

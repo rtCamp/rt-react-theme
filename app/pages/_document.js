@@ -4,7 +4,6 @@
  * @package rt-react-theme
  */
 
-import css from "../static/sass/style.scss";
 import Document, { Head, Main, NextScript } from 'next/document'
 
 const styleSheet = '/_next/static/style.css';
@@ -17,9 +16,7 @@ export default class RtReactThemeDocument extends Document {
 					<link rel="stylesheet" href={ styleSheet } />
 				</Head>
 				<body>
-					<div id="page" className={ css.page }>
-						<Main />
-					</div>
+					<Main />
 					<NextScript />
 				</body>
 			</html>
