@@ -7,7 +7,7 @@ if ( dev ) {
 	process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 }
 
-const app = next( { dev } );
+const app = next( { dev, dir: './app' } );
 const handle = app.getRequestHandler();
 
 app.prepare()
@@ -15,7 +15,7 @@ app.prepare()
 		const server = express();
 
 		server.get( '/p/:id', ( req, res ) => {
-			const actualPage = '/post';
+			const actualPage = '/page';
 			const queryParams = { id: req.params.id };
 			app.render( req, res, actualPage, queryParams )
 		} );
