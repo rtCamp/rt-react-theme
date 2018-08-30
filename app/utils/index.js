@@ -3,3 +3,9 @@ export const createMarkup = ( html ) => {
 		__html: html
 	};
 };
+
+export const convertDate = ( dateGMT ) => {
+	const date = new Date( Date.parse( dateGMT ) );
+
+	return date.toDateString();
+};

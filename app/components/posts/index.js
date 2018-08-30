@@ -7,7 +7,7 @@
 import css from './style.scss';
 import { Component } from 'react';
 import Link from 'next/link';
-import { createMarkup } from './../../utils';
+import { createMarkup, convertDate } from './../../utils';
 
 class Posts extends Component {
 
@@ -24,6 +24,7 @@ class Posts extends Component {
 								<a>{ post.title.rendered }</a>
 							</Link>
 						</h2>
+						<time className={ css.publishedOn } >Published On: { convertDate( post.date ) }</time>
 						<div dangerouslySetInnerHTML={ createMarkup( post.excerpt.rendered ) } />
 					</article>
 				);

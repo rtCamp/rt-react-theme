@@ -6,6 +6,8 @@
 
 .postTitle {
 
+	margin-bottom: 5px;
+
 	a {
 		color: darkslategray;
 		text-decoration: none;
@@ -14,4 +16,11 @@
 			text-decoration: underline;
 		}
 	}
+}
+
+.publishedOn {
+	font-size: 12px;
+	margin-bottom: 20px;
+	display: block;
+	font-style: italic;
 }

@@ -6,12 +6,17 @@
 
 import { Component } from 'react';
 import { APIURL } from "./../../config/env";
-import Layout from './../components/Layout';
+import Layout from './../components/layout';
 import Posts from './../components/posts';
 import fetch from 'isomorphic-unfetch'
 
 class Index extends Component {
 
+	/**
+	 * Get initial props.
+	 *
+	 * @return {object}
+	 */
 	static async getInitialProps() {
 		const header = await fetch( APIURL + '/rt/v1/header');
 		const headerData = await header.json();
@@ -24,6 +29,11 @@ class Index extends Component {
 		}
 	}
 
+	/**
+	 * Render component.
+	 *
+	 * @return {*}
+	 */
 	render() {
 
 		const { header, posts } = this.props;

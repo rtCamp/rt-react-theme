@@ -19,7 +19,11 @@ class Header extends Component {
 				{ header && (
 					<div>
 						<div className={ css.siteTitleDesc } >
-							<h1 className={ css.siteTitle } >{ header.siteTitle }</h1>
+							<h1 className={ css.siteTitle } >
+								<Link href={ '/' } >
+									<a>{ header.siteTitle }</a>
+								</Link>
+							</h1>
 							<p>{ header.siteDescription }</p>
 						</div>
 						<nav className={ css.mainNavContainer } >
