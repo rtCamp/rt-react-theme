@@ -7,6 +7,7 @@
 import { Component } from 'react';
 import Layout from './../components/Layout'
 import fetch from 'isomorphic-unfetch'
+import { APIURL } from "../../config/env";
 
 class Page extends Component {
 
@@ -20,10 +21,10 @@ class Page extends Component {
 		const { id } = context.query;
 
 		console.log( context.query );
-		const res = await fetch( `https://wordpress.test/wp-json/wp/v2/pages/${id}` );
+		const res = await fetch( `${APIURL}/wp/v2/pages/${id}` );
 		const page = await res.json();
 
-		const header = await fetch('https://wordpress.test/wp-json/rt/v1/header');
+		const header = await fetch( APIURL + '/rt/v1/header');
 		const headerData = await header.json();
 
 		return {

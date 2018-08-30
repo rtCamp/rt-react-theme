@@ -1,10 +1,11 @@
 /**
- * index component.
+ * Index component.
  *
  * @package rt-react-theme
  */
 
 import { Component } from 'react';
+import { APIURL } from "./../../config/env";
 import css from "../static/sass/style.scss"
 import Layout from './../components/Layout';
 import Link from 'next/link'
@@ -19,9 +20,9 @@ class Index extends Component {
 	}
 
 	static async getInitialProps() {
-		const header = await fetch('https://wordpress.test/wp-json/rt/v1/header');
+		const header = await fetch( APIURL + '/rt/v1/header');
 		const headerData = await header.json();
-		const post = await fetch('https://wordpress.test/wp-json/wp/v2/posts');
+		const post = await fetch( APIURL + '/wp/v2/posts');
 		const postData = await post.json();
 
 		return {

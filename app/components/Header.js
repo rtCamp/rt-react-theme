@@ -23,6 +23,11 @@ class Header extends Component {
 						</div>
 						<nav>
 							<ul>
+								<li key='home' >
+									<Link href={ '/' }>
+										<a>Home</a>
+									</Link>
+								</li>
 								{ header.menu.map( ( item ) => (
 									<li key={ item.id }>
 										<Link as={ `/p/${item.slug}` } href={ `/page?id=${item.id}` }>
