@@ -16,8 +16,14 @@ app.prepare()
 
 		server.get( '/:slug', ( req, res ) => {
 			const actualPage = '/page';
-			const queryParams = { id: req.params.id, type: req.params.type };
-			app.render( req, res, actualPage, queryParams )
+			const queryParams = { slug: req.params.slug };
+			app.render( req, res, actualPage, queryParams );
+		} );
+
+		server.get( '/article/:slug', ( req, res ) => {
+			const actualPage = '/post';
+			const queryParams = { slug: req.params.slug };
+			app.render( req, res, actualPage, queryParams );
 		} );
 
 		server.get( '*', ( req, res ) => {

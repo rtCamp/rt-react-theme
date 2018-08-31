@@ -1,0 +1,53 @@
+{
+  "root": true,
+  "parser": "babel-eslint",
+  "env": {
+	"browser": true,
+	"node": true,
+	"mocha": true
+  },
+  "parserOptions": {
+	"ecmaVersion": 6,
+	"sourceType": "module",
+	"ecmaFeatures": {
+	  "forOf": true,
+	  "jsx": true,
+	  "es6": true,
+	  "experimentalObjectRestSpread": true
+	}
+  },
+  "rules": {
+	"new-cap": 0,
+	"no-mixed-spaces-and-tabs": "error",
+	"comma-dangle": 0,
+	"indent": 0,
+	"react/prop-types": 0,
+	"react/prefer-stateless-function": 0,
+	"react/jsx-indent": [
+	  2,
+	  "tab"
+	],
+	"react/jsx-indent-props": [
+	  2,
+	  "tab"
+	],
+	"react/jsx-closing-bracket-location": 0,
+	"react/jsx-curly-spacing": [
+	  2,
+	  "always"
+	],
+	"no-undef": 0,
+	"object-curly-spacing": 0,
+	"arrow-body-style": 0,
+	"no-console": 0,
+	"max-len": 0,
+	"prefer-template": 0,
+	"import/no-unresolved": 0,
+	"global-require": 0,
+	"no-underscore-dangle": 0,
+	"import/no-extraneous-dependencies": 0
+  },
+  "plugins": [
+	"react"
+  ]
+}

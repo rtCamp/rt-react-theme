@@ -10,7 +10,7 @@ import fetch from 'isomorphic-unfetch'
 import { APIURL } from "../../config/env";
 import { createMarkup } from './../utils';
 
-class Page extends Component {
+class Post extends Component {
 
 	/**
 	 * Get initial props.
@@ -25,11 +25,11 @@ class Page extends Component {
 		const headerResp = await fetch( APIURL + '/rt/v1/header');
 		const header = await headerResp.json();
 
-		const PageRes = await fetch( `${APIURL}/wp/v2/pages?slug=${slug}` );
-		const page = await PageRes.json();
+		const PageRes = await fetch( `${APIURL}/wp/v2/posts/?slug=${slug}` );
+		const post = await PageRes.json();
 
 		return {
-			page: page[0],
+			post : post[0],
 			header
 		}
 	}
@@ -41,21 +41,22 @@ class Page extends Component {
 	 */
 	render() {
 
-		const { header, page } = this.props;
+		const { header, post } = this.props;
 
 		return (
 			<Layout header={ header } >
-				{ page && (
+				{ post && (
 					<div>
 						<h1>
-							{ page.title.rendered }
+							{ post.title.rendered }
 						</h1>
-						<div dangerouslySetInnerHTML={ createMarkup( page.content.rendered ) } />
+						<div dangerouslySetInnerHTML={ createMarkup( post.content.rendered ) } />
 					</div>
 				) }
 			</Layout>
 		);
+
 	}
 }
 
-export default Page
+export default Post;

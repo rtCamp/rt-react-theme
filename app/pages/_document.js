@@ -9,6 +9,12 @@ import Document, { Head, Main, NextScript } from 'next/document'
 const styleSheet = '/_next/static/style.css';
 
 export default class RtReactThemeDocument extends Document {
+
+	/**
+	 * Render component.
+	 *
+	 * @return {*}
+	 */
 	render() {
 		return (
 			<html>
@@ -22,4 +28,5 @@ export default class RtReactThemeDocument extends Document {
 			</html>
 		)
 	}
+
 }

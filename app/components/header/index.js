@@ -6,10 +6,15 @@
 
 import css from './style.scss';
 import { Component } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
 
 class Header extends Component {
 
+	/**
+	 * Render component.
+	 *
+	 * @return {*}
+	 */
 	render() {
 
 		const { header } = this.props;
@@ -35,7 +40,7 @@ class Header extends Component {
 								</li>
 								{ header.menu.map( ( item ) => (
 									<li key={ item.id }>
-										<Link as={ `/${item.slug}` } href={ `/page?id=${item.id}&type=page` }>
+										<Link as={ `/${item.slug}` } href={ `/page?slug=${item.slug}` }>
 											<a>{ item.title }</a>
 										</Link>
 									</li>
@@ -46,6 +51,7 @@ class Header extends Component {
 				) }
 			</header>
 		);
+
 	}
 }
 

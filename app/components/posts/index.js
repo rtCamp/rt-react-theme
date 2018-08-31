@@ -20,7 +20,7 @@ class Posts extends Component {
 				return (
 					<article className={ css.article } key={ post.id } >
 						<h2 className={ css.postTitle } >
-							<Link as={ `/${post.slug}` } href={ `/page?id=${post.id}&type=post` }>
+							<Link as={ `/article/${post.slug}` } href={ `/post?slug=${post.slug}` }>
 								<a>{ post.title.rendered }</a>
 							</Link>
 						</h2>

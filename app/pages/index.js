@@ -8,14 +8,14 @@ import { Component } from 'react';
 import { APIURL } from "./../../config/env";
 import Layout from './../components/layout';
 import Posts from './../components/posts';
-import fetch from 'isomorphic-unfetch'
+import fetch from 'isomorphic-unfetch';
 
 class Index extends Component {
 
 	/**
 	 * Get initial props.
 	 *
-	 * @return {object}
+	 * @return {object} Fetched data.
 	 */
 	static async getInitialProps() {
 		const header = await fetch( APIURL + '/rt/v1/header');
@@ -26,16 +26,15 @@ class Index extends Component {
 		return {
 			header: headerData,
 			posts: postData
-		}
+		};
 	}
 
 	/**
 	 * Render component.
 	 *
-	 * @return {*}
+	 * @return {*} component.
 	 */
 	render() {
-
 		const { header, posts } = this.props;
 
 		return (
