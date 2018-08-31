@@ -9,6 +9,8 @@ import Layout from './../components/layout'
 import fetch from 'isomorphic-unfetch'
 import { APIURL } from "../../config/env";
 import { createMarkup } from './../utils';
+import { connect } from 'react-redux';
+import { actionTypes } from './../store';
 
 class Page extends Component {
 
@@ -19,19 +21,22 @@ class Page extends Component {
 	 *
 	 * @return {object}
 	 */
-	static async getInitialProps( context ) {
-		const { slug } = context.query;
+	static async getInitialProps( { query, reduxStore } ) {
 
-		const headerResp = await fetch( APIURL + '/rt/v1/header');
-		const header = await headerResp.json();
-
-		const PageRes = await fetch( `${APIURL}/wp/v2/pages?slug=${slug}` );
-		const page = await PageRes.json();
-
-		return {
-			page: page[0],
-			header
+		if ( ! reduxStore.getState().page.slug || query.slug !== reduxStore.getState().page.slug ) {
+			const PageRes = await fetch( `${APIURL}/wp/v2/pages?slug=${query.slug}` );
+			const page = await PageRes.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_PAGE, payload: page[0] } );
 		}
+
+		// Triggers when directly accessed.
+		if ( 0 ===  Object.keys( reduxStore.getState().header ).length ) {
+			const header = await fetch( APIURL + '/rt/v1/header');
+			const headerData = await header.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_HEADER, payload: headerData } );
+		}
+
+		return {};
 	}
 
 	/**
@@ -58,4 +63,10 @@ class Page extends Component {
 	}
 }
 
-export default Page
+export default connect( ( state ) => {
+	return {
+		header: state.header,
+		page: state.page
+	}
+} )( Page );
+

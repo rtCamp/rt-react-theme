@@ -38,7 +38,7 @@ class Header extends Component {
 										<a>Home</a>
 									</Link>
 								</li>
-								{ header.menu.map( ( item ) => (
+								{ header.menu && header.menu.map( ( item ) => (
 									<li key={ item.id }>
 										<Link as={ `/${item.slug}` } href={ `/page?slug=${item.slug}` }>
 											<a>{ item.title }</a>
