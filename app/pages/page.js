@@ -8,7 +8,10 @@ import { Component } from 'react';
 import Layout from './../components/layout'
 import fetch from 'isomorphic-unfetch'
 import { APIURL } from "../../config/env";
-import { createMarkup } from './../utils';
+import { createMarkup, getPostBySlug } from './../utils';
+import { connect } from 'react-redux';
+import { actionTypes } from './../store';
+import _ from "underscore";
 
 class Page extends Component {
 
@@ -19,19 +22,26 @@ class Page extends Component {
 	 *
 	 * @return {object}
 	 */
-	static async getInitialProps( context ) {
-		const { slug } = context.query;
+	static async getInitialProps( { query, reduxStore } ) {
+		const storedPage = getPostBySlug( reduxStore.getState().pages, query.slug );
 
-		const headerResp = await fetch( APIURL + '/rt/v1/header');
-		const header = await headerResp.json();
-
-		const PageRes = await fetch( `${APIURL}/wp/v2/pages?slug=${slug}` );
-		const page = await PageRes.json();
-
-		return {
-			page: page[0],
-			header
+		if ( _.isEmpty( storedPage ) ) {
+			const PageRes = await fetch( `${APIURL}/wp/v2/pages?slug=${query.slug}` );
+			const page = await PageRes.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_PAGES, payload: page[0] } );
+			reduxStore.dispatch( { type: actionTypes.UPDATE_PAGE, payload: page[0] } );
+		} else {
+			reduxStore.dispatch( { type: actionTypes.UPDATE_PAGE, payload: storedPage } );
 		}
+
+		// Triggers when directly accessed.
+		if ( _.isEmpty( reduxStore.getState().header ) ) {
+			const header = await fetch( APIURL + '/rt/v1/header');
+			const headerData = await header.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_HEADER, payload: headerData } );
+		}
+
+		return {};
 	}
 
 	/**
@@ -45,7 +55,7 @@ class Page extends Component {
 
 		return (
 			<Layout header={ header } >
-				{ page && (
+				{ ! _.isEmpty( page ) && (
 					<div>
 						<h1>
 							{ page.title.rendered }
@@ -58,4 +68,10 @@ class Page extends Component {
 	}
 }
 
-export default Page
+export default connect( ( state ) => {
+	return {
+		header: state.header,
+		page: state.page
+	}
+} )( Page );
+

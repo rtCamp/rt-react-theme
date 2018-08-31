@@ -15,7 +15,7 @@ class Posts extends Component {
 
 		const { posts } = this.props;
 
-		if ( posts ) {
+		if ( posts && posts.length ) {
 			return posts.map( ( post ) => {
 				return (
 					<article className={ css.article } key={ post.id } >

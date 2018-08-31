@@ -5,10 +5,13 @@
  */
 
 import { Component } from 'react';
+import { connect } from 'react-redux'
 import { APIURL } from "./../../config/env";
 import Layout from './../components/layout';
 import Posts from './../components/posts';
 import fetch from 'isomorphic-unfetch';
+import { actionTypes } from './../store';
+import _ from "underscore";
 
 class Index extends Component {
 
@@ -17,16 +20,21 @@ class Index extends Component {
 	 *
 	 * @return {object} Fetched data.
 	 */
-	static async getInitialProps() {
-		const header = await fetch( APIURL + '/rt/v1/header');
-		const headerData = await header.json();
-		const post = await fetch( APIURL + '/wp/v2/posts');
-		const postData = await post.json();
+	static async getInitialProps( { reduxStore } ) {
 
-		return {
-			header: headerData,
-			posts: postData
-		};
+		if ( _.isEmpty( reduxStore.getState().header ) ) {
+			const header = await fetch( APIURL + '/rt/v1/header' );
+			const headerData = await header.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_HEADER, payload: headerData } );
+		}
+
+		if ( _.isEmpty( reduxStore.getState().postList ) ) {
+			const post = await fetch( APIURL + '/wp/v2/posts' );
+			const postData = await post.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_POST_LIST, payload: postData } );
+		}
+
+		return {};
 	}
 
 	/**
@@ -45,4 +53,9 @@ class Index extends Component {
 	}
 }
 
-export default Index;
+export default connect( ( state ) => {
+	return {
+		posts: state.postList,
+		header: state.header
+	}
+} )( Index );
