@@ -11,6 +11,7 @@ import Layout from './../components/layout';
 import Posts from './../components/posts';
 import fetch from 'isomorphic-unfetch';
 import { actionTypes } from './../store';
+import _ from "underscore";
 
 class Index extends Component {
 
@@ -21,16 +22,16 @@ class Index extends Component {
 	 */
 	static async getInitialProps( { reduxStore } ) {
 
-		if ( 0 ===  Object.keys( reduxStore.getState().header ).length ) {
+		if ( _.isEmpty( reduxStore.getState().header ) ) {
 			const header = await fetch( APIURL + '/rt/v1/header' );
 			const headerData = await header.json();
 			reduxStore.dispatch( { type: actionTypes.UPDATE_HEADER, payload: headerData } );
 		}
 
-		if ( 0 ===  Object.keys( reduxStore.getState().posts ).length ) {
+		if ( _.isEmpty( reduxStore.getState().postList ) ) {
 			const post = await fetch( APIURL + '/wp/v2/posts' );
 			const postData = await post.json();
-			reduxStore.dispatch( { type: actionTypes.UPDATE_POSTS, payload: postData } );
+			reduxStore.dispatch( { type: actionTypes.UPDATE_POST_LIST, payload: postData } );
 		}
 
 		return {};
@@ -54,7 +55,7 @@ class Index extends Component {
 
 export default connect( ( state ) => {
 	return {
-		posts: state.posts,
+		posts: state.postList,
 		header: state.header
 	}
 } )( Index );

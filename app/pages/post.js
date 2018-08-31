@@ -8,9 +8,10 @@ import { Component } from 'react';
 import Layout from './../components/layout'
 import fetch from 'isomorphic-unfetch'
 import { APIURL } from "../../config/env";
-import { createMarkup } from './../utils';
+import { createMarkup, getPostBySlug } from './../utils';
 import { actionTypes } from "../store";
 import { connect } from 'react-redux';
+import _ from 'underscore';
 
 class Post extends Component {
 
@@ -23,14 +24,19 @@ class Post extends Component {
 	 */
 	static async getInitialProps( { query, reduxStore } ) {
 
-		if ( ! reduxStore.getState().post.slug || query.slug !== reduxStore.getState().post.slug ) {
+		const storedPost = getPostBySlug( reduxStore.getState().posts, query.slug );
+
+		if ( _.isEmpty( storedPost ) ) {
 			const PostRes = await fetch( `${APIURL}/wp/v2/posts/?slug=${query.slug}` );
 			const postData = await PostRes.json();
+			reduxStore.dispatch( { type: actionTypes.UPDATE_POSTS, payload: postData[0] } );
 			reduxStore.dispatch( { type: actionTypes.UPDATE_POST, payload: postData[0] } );
+		} else {
+			reduxStore.dispatch( { type: actionTypes.UPDATE_POST, payload: storedPost } );
 		}
 
 		// Triggers when directly accessed.
-		if ( 0 ===  Object.keys( reduxStore.getState().header ).length ) {
+		if ( _.isEmpty( reduxStore.getState().header ) ) {
 			const header = await fetch( APIURL + '/rt/v1/header');
 			const headerData = await header.json();
 			reduxStore.dispatch( { type: actionTypes.UPDATE_HEADER, payload: headerData } );
@@ -50,7 +56,7 @@ class Post extends Component {
 
 		return (
 			<Layout header={ header } >
-				{ post && (
+				{ ! _.isEmpty( post ) && (
 					<div>
 						<h1>
 							{ post.title.rendered }
